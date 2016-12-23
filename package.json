@@ -1,0 +1,73 @@
+{
+  "name": "battle-city",
+  "version": "0.1.0",
+  "description": "Tanks game has written in JavaScript",
+  "scripts": {
+    "assets:watch": "rm -rf dist/ && supervisor -w server/assets-server.js server/assets-server.js",
+    "assets:build": "rm -rf dist/ && webpack -p",
+    "server": "supervisor -w server/ server/server.js",
+    "start": "concurrently --raw \"npm run assets:watch\" \"npm run server\"",
+    "cover": "jest --coverage --no-cache",
+    "tdd": "jest --watch",
+    "lint:js": "eslint server/ *.js",
+    "lint:ts": "tslint --project .",
+    "lint": "concurrently --raw \"npm run lint:js\" \"npm run lint:ts\"",
+    "pretest": "npm run lint",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nitive/tanks.git"
+  },
+  "keywords": [
+    "tanks",
+    "game"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nitive/tanks/issues"
+  },
+  "homepage": "https://github.com/Nitive/tanks#readme",
+  "devDependencies": {
+    "@cycle/dom": "^14.1.0",
+    "@cycle/xstream-adapter": "^3.0.4",
+    "@cycle/xstream-run": "^4.0.0",
+    "@types/jest": "^16.0.1",
+    "@types/ramda": "0.0.2",
+    "codeclimate-test-reporter": "^0.4.0",
+    "concurrently": "^3.1.0",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.24.1",
+    "jest": "^18.0.0",
+    "ramda": "^0.22.1",
+    "supervisor": "^0.12.0",
+    "ts-jest": "^17.0.3",
+    "ts-loader": "^1.2.2",
+    "tslint": "^4.0.2",
+    "tslint-config-standard": "^2.0.0",
+    "typescript": "^2.1.0",
+    "webpack": "2.1.0-beta.27",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dots-reporter": "^0.1.1",
+    "webpack-hot-middleware": "^2.13.2",
+    "xstream": "^9.0.0"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "http-proxy-middleware": "^0.17.2"
+  },
+  "jest": {
+    "transform": {
+      ".ts": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testResultsProcessor": "<rootDir>/node_modules/ts-jest/coverageprocessor.js",
+    "testRegex": ".*test\\.(ts|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ]
+  }
+}

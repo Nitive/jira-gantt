@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es5",
+      "es2015.promise",
+      "es2015.collection",
+      "es2016.array.include"
+    ],
+    "module": "commonjs",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "outDir": "./dist/",
+    "rootDir": "./src/",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es5"
+  },
+  "typeRoots": [
+    "node_modules/@types/"
+  ],
+  "filesGlob": [
+    "./src/**/*.ts"
+  ]
+}
