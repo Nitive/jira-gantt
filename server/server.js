@@ -5,6 +5,13 @@ const config = require('./config')
 
 const app = express()
 
+// jira api docs https://docs.atlassian.com/jira/REST/cloud/
+app.use('/jira', proxy({
+  target: 'https://cianru.atlassian.net/rest/',
+  pathRewrite: { '^/jira': '' },
+  changeOrigin: true,
+}))
+
 app.use('/__webpack_hmr', proxy({
   target: config.assets.baseUrl,
   changeOrigin: true,
