@@ -1,72 +1,72 @@
 import { Url, NumberAsString, DateAsString, UserFormattedDate } from './common'
 
 export interface JiraProjectResponse {
-  expand: string,
-  self: Url,
-  id: NumberAsString,
-  key: string,
-  description: string,
-  lead: JiraLead,
-  components: JiraComponent[],
-  issueTypes: JiraIssueType[],
-  assigneeType: string,
-  versions: JiraVersion[],
-  name: string,
-  roles: JiraRoles,
-  avatarUrls: JiraAvatarUrls,
-  projectTypeKey: string,
+  readonly expand: string,
+  readonly self: Url,
+  readonly id: NumberAsString,
+  readonly key: string,
+  readonly description: string,
+  readonly lead: JiraLead,
+  readonly components: JiraComponent[],
+  readonly issueTypes: JiraIssueType[],
+  readonly assigneeType: string,
+  readonly versions: JiraVersion[],
+  readonly name: string,
+  readonly roles: JiraRoles,
+  readonly avatarUrls: JiraAvatarUrls,
+  readonly projectTypeKey: string,
 }
 
 export interface JiraLead {
-  self: Url,
-  key: string, // 'markov',
-  name: string, // 'markov',
-  avatarUrls: JiraAvatarUrls,
-  displayName: string, // 'Марков Пётр',
-  active: boolean,
+  readonly self: Url,
+  readonly key: string, // 'markov',
+  readonly name: string, // 'markov',
+  readonly avatarUrls: JiraAvatarUrls,
+  readonly displayName: string, // 'Марков Пётр',
+  readonly active: boolean,
 }
 
 export interface JiraComponent {
-  self: Url,
-  id: NumberAsString,
-  name: string, // 'addForm',
-  isAssigneeTypeValid: boolean,
+  readonly self: Url,
+  readonly id: NumberAsString,
+  readonly name: string, // 'addForm',
+  readonly isAssigneeTypeValid: boolean,
 }
 
 export interface JiraIssueType {
-  self: Url,
-  id: NumberAsString,
-  description: string, // 'A task that needs to be done.'
-  iconUrl: Url,
-  name: string, // 'Task'
-  subtask: boolean,
-  avatarId: number, // 10318
+  readonly self: Url,
+  readonly id: NumberAsString,
+  readonly description: string, // 'A task that needs to be done.'
+  readonly iconUrl: Url,
+  readonly name: string, // 'Task'
+  readonly subtask: boolean,
+  readonly avatarId: number, // 10318
 }
 
 export interface JiraVersion {
-  self: Url,
-  id: NumberAsString,
-  description: string, // 'Новые карточки'
-  name: string, // 'Mobile S12-1'
-  archived: boolean,
-  released: boolean,
-  releaseDate: DateAsString,
-  userReleaseDate: UserFormattedDate,
-  projectId: number, // 11000
+  readonly self: Url,
+  readonly id: NumberAsString,
+  readonly description: string, // 'Новые карточки'
+  readonly name: string, // 'Mobile S12-1'
+  readonly archived: boolean,
+  readonly released: boolean,
+  readonly releaseDate: DateAsString,
+  readonly userReleaseDate: UserFormattedDate,
+  readonly projectId: number, // 11000
 }
 
 export interface JiraRoles {
-  'QA': Url,
-  'atlassian-addons-project-access': Url,
-  'Developers': Url,
-  'Project Managers': Url,
-  'Administrators': Url,
-  'Users': Url,
+  readonly 'QA': Url,
+  readonly 'atlassian-addons-project-access': Url,
+  readonly 'Developers': Url,
+  readonly 'Project Managers': Url,
+  readonly 'Administrators': Url,
+  readonly 'Users': Url,
 }
 
 export interface JiraAvatarUrls {
-  '16x16': Url,
-  '24x24': Url,
-  '32x32': Url,
-  '48x48': Url,
+  readonly '16x16': Url,
+  readonly '24x24': Url,
+  readonly '32x32': Url,
+  readonly '48x48': Url,
 }
