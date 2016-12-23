@@ -8,6 +8,7 @@ const app = express()
 // jira api docs https://docs.atlassian.com/jira/REST/cloud/
 app.use('/jira', proxy({
   target: 'https://cianru.atlassian.net/rest/',
+  auth: `${config.jira.login}:${config.jira.pass}`,
   pathRewrite: { '^/jira': '' },
   changeOrigin: true,
 }))
