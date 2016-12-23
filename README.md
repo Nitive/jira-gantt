@@ -1,8 +1,8 @@
 # Cycle.js Starter
-[![Build Status](https://travis-ci.org/Nitive/cycle-js-starter.svg?branch=travis)](https://travis-ci.org/Nitive/cycle-js-starter)
-[![Code Climate](https://codeclimate.com/github/Nitive/cycle-js-starter/badges/gpa.svg)](https://codeclimate.com/github/Nitive/cycle-js-starter)
-[![Test Coverage](https://codeclimate.com/github/Nitive/cycle-js-starter/badges/coverage.svg)](https://codeclimate.com/github/Nitive/cycle-js-starter/coverage)
-[![Issue Count](https://codeclimate.com/github/Nitive/cycle-js-starter/badges/issue_count.svg)](https://codeclimate.com/github/Nitive/cycle-js-starter)
+[![Build Status](https://travis-ci.org/Nitive/jira-gantt.svg?branch=travis)](https://travis-ci.org/Nitive/jira-gantt)
+[![Code Climate](https://codeclimate.com/github/Nitive/jira-gantt/badges/gpa.svg)](https://codeclimate.com/github/Nitive/jira-gantt)
+[![Test Coverage](https://codeclimate.com/github/Nitive/jira-gantt/badges/coverage.svg)](https://codeclimate.com/github/Nitive/jira-gantt/coverage)
+[![Issue Count](https://codeclimate.com/github/Nitive/jira-gantt/badges/issue_count.svg)](https://codeclimate.com/github/Nitive/jira-gantt)
 
 ### Get started
 1. Clone repository
