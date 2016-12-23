@@ -44,7 +44,7 @@
     "jest": "^18.0.0",
     "ramda": "^0.22.1",
     "supervisor": "^0.12.0",
-    "ts-jest": "^17.0.3",
+    "ts-jest": "^18.0.0",
     "ts-loader": "^1.2.2",
     "tslint": "^4.0.2",
     "tslint-config-standard": "^2.0.0",
