@@ -1,6 +1,4 @@
-type Inc
-  = { type: 'Inc' }
-
+export type Inc = { type: 'Inc' }
 export function inc(): Inc {
   return { type: 'Inc' }
 }
