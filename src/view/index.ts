@@ -1,4 +1,5 @@
 import { div, button } from '@cycle/dom'
+import * as api from '../api'
 
 import { Sinks, Sources } from '..'
 
@@ -17,6 +18,7 @@ export default function view(sources: Sources): Sinks {
 
   return {
     DOM: vdom$,
+    HTTP: api.project('CSSSR'),
     state: incClick$,
   }
 }

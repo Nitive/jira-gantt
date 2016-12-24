@@ -1,5 +1,7 @@
 import { Url, NumberAsString, DateAsString, UserFormattedDate } from './common'
 
+// /api/2/project/:project
+
 export interface JiraProjectResponse {
   readonly expand: string,
   readonly self: Url,
