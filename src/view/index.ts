@@ -3,7 +3,7 @@ import * as api from '../api'
 
 import { Sinks, Sources } from '..'
 
-export default function view(sources: Sources): Sinks {
+export default function main(sources: Sources): Sinks {
   const vdom$ = sources.state.$.map(state => {
     return div([
       button('.inc', '+'),
@@ -11,7 +11,7 @@ export default function view(sources: Sources): Sinks {
     ])
   })
 
-  const incClick$ = sources.DOM
+  const inc$ = sources.DOM
     .select('.inc')
     .events('click')
     .mapTo(sources.state.actions.inc())
@@ -19,6 +19,6 @@ export default function view(sources: Sources): Sinks {
   return {
     DOM: vdom$,
     HTTP: api.project('CSSSR'),
-    state: incClick$,
+    state: inc$,
   }
 }

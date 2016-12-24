@@ -1,27 +1,26 @@
 import { Stream } from 'xstream'
 
-import { State } from '../state'
-import patcher from '../state/patcher'
-import * as actions from '../state/actions'
-
-function applyPatch(state: State, action: actions.Action) {
-  return {
-    ...state,
-    ...patcher(state, action),
-  }
-}
-
-export class StateSource {
+export class StateSource<State, Action, Actions> {
   public readonly $: Stream<State>
-  public readonly actions = actions
+  public readonly actions: Actions
 
-  constructor(initialState: State, actions$: Stream<actions.Action>) {
-    this.$ = actions$.fold(applyPatch, initialState)
+  constructor(
+    initialState: State,
+    actions: Actions,
+    reducer: (state: State, action: Action) => State,
+    actions$: Stream<Action>,
+  ) {
+    this.$ = actions$.fold(reducer, initialState)
+    this.actions = actions
   }
 }
 
-export function makeStateDriver(initialState: State) {
-  return function stateDriver(actions$: Stream<actions.Action>) {
-    return new StateSource(initialState, actions$)
+export function makeStateDriver<State, Action, Actions>(
+  initialState: State,
+  actions: Actions,
+  reducer: (state: State, action: Action) => State,
+) {
+  return function stateDriver(actions$: Stream<Action>) {
+    return new StateSource(initialState, actions, reducer, actions$)
   }
 }

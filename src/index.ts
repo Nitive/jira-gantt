@@ -6,24 +6,21 @@ import { makeStateDriver, StateSource } from './utils/state-driver'
 import { makeHTTPDriver, HTTPSource, RequestInput } from '@cycle/http'
 
 import { makeKeysDriver, KeysSource } from './utils/keys-driver'
-import { Action } from './state/actions'
-import view from './view'
+import { reducer, State } from './state'
+import * as actions from './state/actions'
+import main from './view'
 
 export interface Sources {
   DOM: DOMSource,
   HTTP: HTTPSource,
-  state: StateSource,
+  state: StateSource<State, actions.Action, typeof actions>,
   keys: KeysSource,
 }
 
 export interface Sinks {
   DOM: Stream<VNode>,
-  state: Stream<Action>,
+  state: Stream<actions.Action>,
   HTTP: Stream<RequestInput>,
-}
-
-function main(sources: Sources): Sinks {
-  return view(sources)
 }
 
 const initialState = {
@@ -33,6 +30,6 @@ const initialState = {
 run(main, {
   DOM: makeDOMDriver('#app'),
   HTTP: makeHTTPDriver(),
-  state: makeStateDriver(initialState),
+  state: makeStateDriver(initialState, actions, reducer),
   keys: makeKeysDriver(),
 })

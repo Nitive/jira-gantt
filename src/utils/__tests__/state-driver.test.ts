@@ -3,7 +3,27 @@ import { makeStateDriver } from '../state-driver'
 
 describe('stateDriver', () => {
   it('should apply actions', () => {
-    const driver = makeStateDriver({ clicks: 0 })
+    interface State {
+      clicks: number,
+    }
+
+    const st: State = { clicks: 0 }
+    type Action = { type: 'Inc' }
+    const actions = {
+      inc: (): Action => ({ type: 'Inc' }),
+    }
+    function reducer(state: State, action: Action): State {
+      switch (action.type) {
+        case 'Inc': {
+          return {
+            ...state,
+            clicks: state.clicks + 1,
+          }
+        }
+      }
+    }
+
+    const driver = makeStateDriver(st, actions, reducer)
     const actions$ = xs.fromArray([
       { type: 'Inc' },
       { type: 'Inc' },
