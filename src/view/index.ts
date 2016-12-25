@@ -14,7 +14,8 @@ export default function main(sources: Sources): Sinks {
   const inc$ = sources.DOM
     .select('.inc')
     .events('click')
-    .mapTo(sources.state.actions.inc())
+    .mapTo(sources.state.actions.incAsync())
+    .flatten()
 
   return {
     DOM: vdom$,
