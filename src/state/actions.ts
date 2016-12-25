@@ -6,8 +6,8 @@ export function inc(): Inc {
 }
 export function incAsync(): Stream<Inc> {
   return xs.merge(
-    xs.periodic(1000).take(2).mapTo({ type: 'Inc' } as Inc),
-    xs.of({ type: 'Inc' } as Inc),
+    xs.periodic(1000).take(2).mapTo(inc()),
+    xs.of(inc()),
   )
 }
 
