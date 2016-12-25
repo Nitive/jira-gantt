@@ -1,9 +1,8 @@
-import xs, { Stream } from 'xstream'
-import { RequestInput } from '@cycle/http'
+import xs from 'xstream'
+import { JiraProjectResponse } from './project'
 
-export function project(projectKey: string): Stream<RequestInput> {
-  return xs.of({
-    url: `/jira/api/2/project/${projectKey}`,
-    category: 'project',
-  })
+export function project(projectKey: string) {
+  const promise = fetch(`/jira/api/2/project/${projectKey}`)
+    .then(res => res.json<JiraProjectResponse>())
+  return xs.fromPromise(promise)
 }

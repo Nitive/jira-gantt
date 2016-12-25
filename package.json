@@ -1,7 +1,7 @@
 {
-  "name": "battle-city",
+  "name": "jira-gantt",
   "version": "0.1.0",
-  "description": "Tanks game has written in JavaScript",
+  "description": "",
   "scripts": {
     "assets:watch": "rm -rf dist/ && supervisor -w server/assets-server.js server/assets-server.js",
     "assets:build": "rm -rf dist/ && webpack -p",
@@ -17,23 +17,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nitive/tanks.git"
+    "url": "git+https://github.com/Nitive/jira-gantt.git"
   },
-  "keywords": [
-    "tanks",
-    "game"
-  ],
+  "keywords": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Nitive/tanks/issues"
+    "url": "https://github.com/Nitive/jira-gantt/issues"
   },
-  "homepage": "https://github.com/Nitive/tanks#readme",
+  "homepage": "https://github.com/Nitive/jira-gantt#readme",
   "devDependencies": {
     "@cycle/dom": "^14.1.0",
     "@cycle/xstream-adapter": "^3.0.4",
     "@cycle/xstream-run": "^4.0.0",
     "@types/jest": "^16.0.1",
     "@types/ramda": "0.0.2",
+    "@types/whatwg-fetch": "^0.0.33",
     "codeclimate-test-reporter": "^0.4.0",
     "concurrently": "^3.1.0",
     "eslint": "^3.11.1",
@@ -56,7 +54,6 @@
     "xstream": "^9.0.0"
   },
   "dependencies": {
-    "@cycle/http": "^11.2.0",
     "express": "^4.14.0",
     "http-proxy-middleware": "^0.17.2"
   },

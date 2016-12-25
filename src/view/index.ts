@@ -1,5 +1,4 @@
 import { div, button } from '@cycle/dom'
-import * as api from '../api'
 
 import { Sinks, Sources } from '..'
 
@@ -19,7 +18,6 @@ export default function main(sources: Sources): Sinks {
 
   return {
     DOM: vdom$,
-    HTTP: api.project('CSSSR'),
     state: inc$,
   }
 }
