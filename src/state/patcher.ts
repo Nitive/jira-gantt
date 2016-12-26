@@ -11,5 +11,31 @@ export default function patcher(state: State, action: Action): Partial<State> {
         clicks: state.clicks + 1,
       }
     }
+
+    case 'GetIssuesForVersionPending': {
+      return {
+        issues: {
+          status: 'fetching',
+        },
+      }
+    }
+
+    case 'GetIssuesForVersionSuccess': {
+      return {
+        issues: {
+          status: 'success',
+          data: action.data,
+        },
+      }
+    }
+
+    case 'GetIssuesForVersionErrored': {
+      return {
+        issues: {
+          status: 'errored',
+          error: action.error,
+        },
+      }
+    }
   }
 }

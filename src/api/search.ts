@@ -2,9 +2,9 @@ import { JiraIssue, FieldName } from './issue'
 
 // /api/2/search
 
-export interface JiraSearchParams {
+export interface JiraSearchBody {
   readonly jql: string,
-  readonly fields: FieldName[],
+  readonly fields?: FieldName[],
 }
 
 export interface JiraSearchResponse {

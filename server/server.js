@@ -5,11 +5,14 @@ const config = require('./config')
 
 const app = express()
 
+app.set('x-powered-by', false)
+
 // jira api docs https://docs.atlassian.com/jira/REST/cloud/
 app.use('/jira', proxy({
-  target: 'https://cianru.atlassian.net/rest/',
+  target: 'https://cianru.atlassian.net/',
+  pathRewrite: { '^/jira': '/rest' },
   auth: `${config.jira.login}:${config.jira.pass}`,
-  pathRewrite: { '^/jira': '' },
+  headers: { 'User-Agent': 'Node.js' },
   changeOrigin: true,
 }))
 
