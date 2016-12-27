@@ -30,7 +30,13 @@ function getIssueInfo(issue: JiraIssue): Issue {
   }
 }
 
+function isIssueUnderDevelopment(issue: JiraIssue): boolean {
+  const devStatuses = ['Open', 'Reopen', 'Suspended', 'In Progress']
+  return devStatuses.includes(issue.fields.status.name)
+}
+
 const getUserIssues = R.pipe(
+  R.filter(isIssueUnderDevelopment),
   R.map(getIssueInfo),
   R.groupBy<Issue>((issue: Issue) => issue.assignee.key),
   R.values,

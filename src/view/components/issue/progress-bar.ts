@@ -30,7 +30,7 @@ export function issueProgressBar(props: IssueProgress) {
 
   const remainingStyle = {
     ...cellStyle,
-    'background-color': 'yellow',
+    'background-color': 'red',
     'width': px(props.remainingEstimate),
   }
 
