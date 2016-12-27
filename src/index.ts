@@ -5,9 +5,10 @@ import { DOMSource } from '@cycle/dom/xstream-typings'
 import { makeStateDriver, StateSource } from './utils/state-driver'
 
 import { makeKeysDriver, KeysSource } from './utils/keys-driver'
-import { reducer, State } from './state'
+import { State } from './state'
+import { reducer } from './state/reducer'
 import * as actions from './state/actions'
-import main from './view'
+import { main } from './view'
 
 export interface Sources {
   DOM: DOMSource,

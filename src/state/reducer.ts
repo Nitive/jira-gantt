@@ -18,10 +18,11 @@ function getIssueInfo(issue: JiraIssue): Issue {
   }
 }
 
-export default function patcher(_: State, action: Action): Partial<State> {
+export function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'GetIssuesForVersionPending': {
       return {
+        ...state,
         issues: {
           status: 'fetching',
         },
@@ -30,6 +31,7 @@ export default function patcher(_: State, action: Action): Partial<State> {
 
     case 'GetIssuesForVersionSuccess': {
       return {
+        ...state,
         issues: {
           status: 'success',
           data: {
@@ -41,6 +43,7 @@ export default function patcher(_: State, action: Action): Partial<State> {
 
     case 'GetIssuesForVersionErrored': {
       return {
+        ...state,
         issues: {
           status: 'errored',
           error: action.error,

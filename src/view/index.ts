@@ -3,7 +3,7 @@ import { div, button } from '@cycle/dom'
 import { Sinks, Sources } from '..'
 import { issueRow } from './components/issue'
 
-export default function main(sources: Sources): Sinks {
+export function main(sources: Sources): Sinks {
   const vdom$ = sources.state.$.map(state => {
     return div([
       button('.inc', 'fetch'),
