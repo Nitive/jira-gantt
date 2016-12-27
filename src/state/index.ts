@@ -1,14 +1,15 @@
 import { Action } from './actions'
 import patcher from './patcher'
-
-import { JiraSearchResponse } from '../api/search'
+import { Issue } from './essences/issue'
 
 interface IssuesFetching {
   readonly status: 'fetching',
 }
 interface IssuesFetched {
   readonly status: 'success',
-  readonly data: JiraSearchResponse
+  readonly data: {
+    issues: Issue[],
+  }
 }
 interface IssuesErrored {
   readonly status: 'errored',
@@ -18,7 +19,6 @@ interface IssuesErrored {
 type Issues = IssuesFetching | IssuesFetched | IssuesErrored
 
 export interface State {
-  readonly clicks: number,
   readonly issues?: Issues,
 }
 

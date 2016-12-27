@@ -3,17 +3,6 @@ import xs, { Stream } from 'xstream'
 import * as api from '../api'
 import { JiraSearchResponse } from '../api/search'
 
-type Inc = { type: 'Inc' }
-export function inc(): Inc {
-  return { type: 'Inc' }
-}
-export function incAsync(): Stream<Inc> {
-  return xs.merge(
-    xs.periodic(1000).take(2).mapTo(inc()),
-    xs.of(inc()),
-  )
-}
-
 interface GetIssuesForVersionPending {
   type: 'GetIssuesForVersionPending',
 }
@@ -47,5 +36,4 @@ export function getIssuesForVersion(version: string): Stream<GetIssuesForVersion
 }
 
 export type Action
-  = Inc
-  | GetIssuesForVersion
+  = GetIssuesForVersion

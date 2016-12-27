@@ -11,6 +11,9 @@ export type FieldName
   | 'issuetype'
   | 'description'
   | 'summary'
+  | 'progress'
+  | 'timeestimate' // remaining estimate
+  | 'timeoriginalestimate'
 
 export interface JiraIssue {
   readonly expand: string,
@@ -29,6 +32,9 @@ export interface JiraIssueFields {
   readonly reporter: JiraUser,
   readonly priority: JiraIssueField.Priority,
   readonly status: JiraIssueField.Status,
+  readonly progress: JiraIssueField.Progress,
+  readonly timeestimate: number,
+  readonly timeoriginalestimate: number,
 }
 
 export namespace JiraIssueField {
@@ -79,5 +85,11 @@ export namespace JiraIssueField {
     readonly name: StatusName,
     readonly id: NumberAsString,
     readonly statusCategory: StatusCategory,
+  }
+
+  export interface Progress {
+    progress: number,
+    total: number,
+    percent: number,
   }
 }

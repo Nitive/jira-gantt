@@ -1,7 +1,7 @@
 import { div, button } from '@cycle/dom'
 
 import { Sinks, Sources } from '..'
-import { taskRow } from './components/task'
+import { issueRow } from './components/issue'
 
 export default function main(sources: Sources): Sinks {
   const vdom$ = sources.state.$.map(state => {
@@ -10,7 +10,7 @@ export default function main(sources: Sources): Sinks {
       state.issues && div([
         state.issues.status === 'fetching' && div('fetching...'),
         state.issues.status === 'success' && div(
-          state.issues.data.issues.map(issue => taskRow(issue.key)),
+          state.issues.data.issues.map(issueRow),
         ),
         state.issues.status === 'errored' && div('Error!'),
       ]),

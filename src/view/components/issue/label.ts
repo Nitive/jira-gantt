@@ -7,6 +7,6 @@ const style = {
   'background-color': '#A7CFFE',
 }
 
-export function taskLabel(taskKey: string) {
-  return span({ style }, taskKey)
+export function issueLabel(issueKey: string) {
+  return span({ style }, issueKey)
 }

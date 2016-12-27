@@ -20,9 +20,7 @@ export interface Sinks {
   state: Stream<actions.Action>,
 }
 
-const initialState = {
-  clicks: 0,
-}
+const initialState = {}
 
 run(main, {
   DOM: makeDOMDriver('#app'),

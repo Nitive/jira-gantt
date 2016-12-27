@@ -4,14 +4,22 @@
 import { State } from '.'
 import { Action } from './actions'
 
-export default function patcher(state: State, action: Action): Partial<State> {
-  switch (action.type) {
-    case 'Inc': {
-      return {
-        clicks: state.clicks + 1,
-      }
-    }
+import { JiraIssue } from '../api/issue'
+import { Issue } from './essences/issue'
 
+function getIssueInfo(issue: JiraIssue): Issue {
+  return {
+    issueKey: issue.key,
+    progress: {
+      originalEstimate: issue.fields.timeoriginalestimate,
+      remainingEstimate: issue.fields.timeestimate,
+      spended: issue.fields.progress.progress,
+    },
+  }
+}
+
+export default function patcher(_: State, action: Action): Partial<State> {
+  switch (action.type) {
     case 'GetIssuesForVersionPending': {
       return {
         issues: {
@@ -24,7 +32,9 @@ export default function patcher(state: State, action: Action): Partial<State> {
       return {
         issues: {
           status: 'success',
-          data: action.data,
+          data: {
+            issues: action.data.issues.map(getIssueInfo),
+          },
         },
       }
     }

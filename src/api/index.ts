@@ -47,6 +47,9 @@ export function getIssuesForVersion(version: string) {
       'issuetype',
       'description',
       'summary',
+      'progress',
+      'timeestimate',
+      'timeoriginalestimate',
     ],
   }
 
