@@ -1,4 +1,4 @@
-import { div, button } from '@cycle/dom'
+import { img, div, button } from '@cycle/dom'
 
 import { Sinks, Sources } from '..'
 import { issueRow } from './components/issue'
@@ -10,7 +10,15 @@ export function main(sources: Sources): Sinks {
       state.issues && div([
         state.issues.status === 'fetching' && div('fetching...'),
         state.issues.status === 'success' && div(
-          state.issues.data.issues.map(issueRow),
+          state.issues.data.issues.map(userIssues => {
+            return div([
+              div([
+                img({ src: userIssues.user.avatar }),
+                div(userIssues.user.name),
+              ]),
+              div(userIssues.issues.map(issueRow)),
+            ])
+          }),
         ),
         state.issues.status === 'errored' && div('Error!'),
       ]),

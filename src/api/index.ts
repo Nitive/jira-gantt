@@ -49,6 +49,7 @@ export function getIssuesForVersion(version: string) {
       'progress',
       'timeestimate',
       'timeoriginalestimate',
+      'assignee',
     ],
   }
 
