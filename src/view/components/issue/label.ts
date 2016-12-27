@@ -1,4 +1,4 @@
-import { span } from '@cycle/dom'
+import { a } from '@cycle/dom'
 
 const style = {
   'padding': '1px 4px',
@@ -8,5 +8,7 @@ const style = {
 }
 
 export function issueLabel(issueKey: string) {
-  return span({ style }, issueKey)
+  const href = `https://cianru.atlassian.net/browse/${issueKey}`
+  const attrs = { href, target: '_blank' }
+  return a({ style, attrs }, issueKey)
 }
