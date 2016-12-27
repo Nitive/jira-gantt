@@ -1,4 +1,4 @@
-import xs from 'xstream'
+import xs, { Stream } from 'xstream'
 import { JiraProjectResponse } from './project'
 import { JiraSearchBody, JiraSearchResponse } from './search'
 
@@ -9,14 +9,14 @@ function checkStatus(res: Response): Response {
   throw new Error(res.statusText)
 }
 
-function get<ResponseBody>(url: string) {
+function get<ResponseBody>(url: string): Stream<ResponseBody> {
   const promise = fetch(url)
     .then(checkStatus)
     .then(res => res.json<ResponseBody>())
   return xs.fromPromise(promise)
 }
 
-function post<ResponseBody>(url: string, data: Object) {
+function post<ResponseBody>(url: string, data: Object): Stream<ResponseBody> {
   const params = {
     method: 'POST',
     headers: {
@@ -27,7 +27,6 @@ function post<ResponseBody>(url: string, data: Object) {
   const promise = fetch(url, params)
     .then(checkStatus)
     .then(res => res.json<ResponseBody>())
-    .catch(err => console.log(err))
   return xs.fromPromise(promise)
 }
 
