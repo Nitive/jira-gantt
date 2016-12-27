@@ -1,6 +1,7 @@
-import { pre, code, div, button } from '@cycle/dom'
+import { div, button } from '@cycle/dom'
 
 import { Sinks, Sources } from '..'
+import { taskRow } from './components/task'
 
 export default function main(sources: Sources): Sinks {
   const vdom$ = sources.state.$.map(state => {
@@ -8,9 +9,9 @@ export default function main(sources: Sources): Sinks {
       button('.inc', 'fetch'),
       state.issues && div([
         state.issues.status === 'fetching' && div('fetching...'),
-        state.issues.status === 'success' && pre([
-          code(JSON.stringify(state.issues.data, null, 2)),
-        ]),
+        state.issues.status === 'success' && div(
+          state.issues.data.issues.map(issue => taskRow(issue.key)),
+        ),
         state.issues.status === 'errored' && div('Error!'),
       ]),
     ])
