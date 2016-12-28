@@ -2,19 +2,6 @@
   "name": "jira-gantt",
   "version": "0.1.0",
   "description": "",
-  "scripts": {
-    "assets:watch": "rm -rf dist/ && supervisor -w server/assets-server.js server/assets-server.js",
-    "assets:build": "rm -rf dist/ && webpack -p",
-    "server": "supervisor -w server/ server/server.js",
-    "start": "concurrently --raw \"npm run assets:watch\" \"npm run server\"",
-    "cover": "jest --coverage --no-cache",
-    "tdd": "jest --watch",
-    "lint:js": "eslint server/ *.js",
-    "lint:ts": "tslint --project .",
-    "lint": "concurrently --raw \"npm run lint:js\" \"npm run lint:ts\"",
-    "pretest": "npm run lint",
-    "test": "jest"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Nitive/jira-gantt.git"
