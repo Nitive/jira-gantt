@@ -1,6 +1,6 @@
-import xs, { Stream } from 'xstream'
+import xs from 'xstream'
 
-import * as api from '../api'
+import { JiraApi } from '../api'
 import { JiraSearchResponse } from '../api/search'
 
 
@@ -20,12 +20,13 @@ interface GetIssuesForVersionErrored {
 
 type GetIssuesForVersion = GetIssuesForVersionPending | GetIssuesForVersionSuccess | GetIssuesForVersionErrored
 
-export function getIssuesForVersion(version: string): Stream<GetIssuesForVersion> {
-  const pending: GetIssuesForVersionPending = {
-    type: 'GetIssuesForVersionPending',
-  }
-  return xs.merge(
-    xs.of(pending),
+export interface Context {
+  api: JiraApi,
+}
+
+export function getIssuesForVersion(version: string) {
+  return ({ api }: Context) => xs.merge(
+    xs.of<GetIssuesForVersionPending>({ type: 'GetIssuesForVersionPending' }),
     api
       .getIssuesForVersion(version)
       .map<GetIssuesForVersion>(data => ({ type: 'GetIssuesForVersionSuccess', data }))

@@ -2,13 +2,14 @@ import { Stream } from 'xstream'
 import { run } from '@cycle/xstream-run'
 import { makeDOMDriver, VNode } from '@cycle/dom'
 import { DOMSource } from '@cycle/dom/xstream-typings'
-import { makeStateDriver, flatActionsStreamMiddleware, StateSource } from './utils/state-driver'
 
+import { JiraApi } from './api/'
+import { makeStateDriver, flatActionsStreamMiddleware, StateSource } from './utils/state-driver'
 import { makeKeysDriver, KeysSource } from './utils/keys-driver'
 import { State } from './state'
 import { reducer } from './state/reducer'
 import * as actions from './state/actions'
-import { Action } from './state/actions'
+import { Action, Context } from './state/actions'
 import { main } from './view'
 
 
@@ -18,7 +19,8 @@ export interface Sources {
   keys: KeysSource,
 }
 
-type MiddlewareInput = Action | Stream<Action>
+type FunctionInput = ({ api }: Context) => Action | Stream<Action>
+type MiddlewareInput = Action | Stream<Action> | FunctionInput
 export interface Sinks {
   DOM: Stream<VNode>,
   state: Stream<MiddlewareInput>,
@@ -26,8 +28,27 @@ export interface Sinks {
 
 const initialState = {}
 
+import xs from 'xstream'
+
+function createPassContextMiddleware(context: Context) {
+  return function passContextMiddleware(action: MiddlewareInput): Stream<Action | Stream<Action>> {
+    return typeof action === 'function'
+      ? xs.of(action(context))
+      : xs.of(action)
+  }
+}
+
+const api = new JiraApi('user:pass')
+const context: Context = { api }
+
+function middleware(action: MiddlewareInput): Stream<Action> {
+  return createPassContextMiddleware(context)(action)
+    .map(flatActionsStreamMiddleware)
+    .flatten()
+}
+
 run(main, {
   DOM: makeDOMDriver('#app'),
-  state: makeStateDriver(initialState, actions, reducer, flatActionsStreamMiddleware),
+  state: makeStateDriver(initialState, actions, reducer, middleware),
   keys: makeKeysDriver(),
 })
