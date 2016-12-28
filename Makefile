@@ -51,6 +51,9 @@ cover:
 assets-build: clean
 	webpack -p
 
-production: assets-build server
+production:
+	NODE_ENV=production \
+	ASSETS_BASE_URL=/ \
+	make assets-build server
 
 .PHONY: assets-build production

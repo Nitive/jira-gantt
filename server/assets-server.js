@@ -22,16 +22,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }))
 app.use(require('webpack-hot-middleware')(compiler, { log: () => {} }))
 
-app.get('/_/info', (req, res) => {
-  res.send(`
-    <pre>
-      <code>
-        <br>${JSON.stringify(config, null, 2)}
-      <code>
-    </pre>
-  `)
-})
-
 
 app.listen(config.assets.port, err => {
   /* eslint-disable no-console */
