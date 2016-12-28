@@ -1,6 +1,8 @@
 import xs, { Stream } from 'xstream'
 
-export class StateSource<State, Action, Actions, MiddlewareInput> {
+export type MiddlewareInput = any
+
+export class StateSource<State, Action, Actions> {
   public readonly $: Stream<State>
   public readonly actions: Actions
 
@@ -8,7 +10,7 @@ export class StateSource<State, Action, Actions, MiddlewareInput> {
     initialState: State,
     actions: Actions,
     reducer: (state: State, action: Action) => State,
-    middleware: (mi: MiddlewareInput) => Stream<Action>,
+    middleware: (middlewareInput: MiddlewareInput) => Stream<Action>,
     actions$: Stream<MiddlewareInput>,
   ) {
     this.$ = actions$
@@ -19,26 +21,18 @@ export class StateSource<State, Action, Actions, MiddlewareInput> {
   }
 }
 
-export function makeStateDriverWithMiddleware<State, Action, Actions, MiddlewareInput>(
-  initialState: State,
-  actions: Actions,
-  reducer: (state: State, action: Action) => State,
-  middleware: (mi: MiddlewareInput) => Stream<Action>,
-) {
-  return function stateDriver(actions$: Stream<MiddlewareInput>) {
-    return new StateSource(initialState, actions, reducer, middleware, actions$)
-  }
-}
-
 export function makeStateDriver<State, Action, Actions>(
   initialState: State,
   actions: Actions,
   reducer: (state: State, action: Action) => State,
+  middleware?: (middlewareInput: MiddlewareInput) => Stream<Action>,
 ) {
   function defaultMiddleware(action: Action): Stream<Action> {
     return xs.of(action)
   }
-  return makeStateDriverWithMiddleware(initialState, actions, reducer, defaultMiddleware)
+  return function stateDriver(actions$: Stream<MiddlewareInput>) {
+    return new StateSource(initialState, actions, reducer, middleware || defaultMiddleware, actions$)
+  }
 }
 
 
