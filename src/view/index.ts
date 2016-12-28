@@ -29,7 +29,6 @@ export function main(sources: Sources): Sinks {
     .select('.inc')
     .events('click')
     .map(() => sources.state.actions.getIssuesForVersion('Mobile S13-1'))
-    .flatten()
 
   return {
     DOM: vdom$,

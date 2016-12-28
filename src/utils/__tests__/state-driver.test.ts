@@ -1,5 +1,5 @@
 import xs, { Stream } from 'xstream'
-import { makeStateDriver } from '../state-driver'
+import { makeStateDriver, makeStateDriverWithMiddleware, streamToActionMiddleware } from '../state-driver'
 
 describe('stateDriver', () => {
   interface State {
@@ -7,7 +7,7 @@ describe('stateDriver', () => {
   }
 
   const st: State = { clicks: 0 }
-  type Action = { type: 'Inc' }
+  interface Action { type: 'Inc' }
   const action: Action = { type: 'Inc' }
   const actions = {
     inc: (): Action => ({ type: 'Inc' }),
@@ -48,12 +48,8 @@ describe('stateDriver', () => {
   })
 
   it('should apply middleware', () => {
-    function middleware(streamOfActions: Stream<Action>): Stream<Action> {
-      return streamOfActions
-    }
-
-    const driver = makeStateDriver(st, actions, reducer, middleware)
-    const actions$ = xs.fromArray([ xs.of(action), xs.of(action) ])
+    const driver = makeStateDriverWithMiddleware(st, actions, reducer, streamToActionMiddleware)
+    const actions$ = xs.fromArray([ xs.of(action), xs.of(action), action ])
     const state = driver(actions$)
 
     let clicks = 0

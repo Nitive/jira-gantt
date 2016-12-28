@@ -19,28 +19,37 @@ export class StateSource<State, Action, Actions, MiddlewareInput> {
   }
 }
 
-export function makeStateDriver<State, Action, Actions>(
-  initialState: State,
-  actions: Actions,
-  reducer: (state: State, action: Action) => State,
-): StateSource<State, Action, Actions, Action>
-export function makeStateDriver<State, Action, Actions, MiddlewareInput>(
+export function makeStateDriverWithMiddleware<State, Action, Actions, MiddlewareInput>(
   initialState: State,
   actions: Actions,
   reducer: (state: State, action: Action) => State,
   middleware: (mi: MiddlewareInput) => Stream<Action>,
-): StateSource<State, Action, Actions, MiddlewareInput> {
-  if (middleware) {
-    return function stateDriverWithMiddleware(actions$: Stream<MiddlewareInput>) {
-      return new StateSource(initialState, actions, reducer, middleware, actions$)
-    }
+) {
+  return function stateDriver(actions$: Stream<MiddlewareInput>) {
+    return new StateSource(initialState, actions, reducer, middleware, actions$)
   }
+}
 
+export function makeStateDriver<State, Action, Actions>(
+  initialState: State,
+  actions: Actions,
+  reducer: (state: State, action: Action) => State,
+) {
   function defaultMiddleware(action: Action): Stream<Action> {
     return xs.of(action)
   }
+  return makeStateDriverWithMiddleware(initialState, actions, reducer, defaultMiddleware)
+}
 
-  return function stateDriver(actions$: Stream<Action>) {
-    return new StateSource(initialState, actions, reducer, defaultMiddleware, actions$)
-  }
+
+// extra
+
+function isStream<T>(stream: any): stream is Stream<T> {
+  return stream instanceof Stream
+}
+
+export function streamToActionMiddleware<Action>(actionsStreamOrAction: Action | Stream<Action>): Stream<Action> {
+  return isStream(actionsStreamOrAction)
+    ? actionsStreamOrAction
+    : xs.of(actionsStreamOrAction)
 }
