@@ -41,7 +41,7 @@ describe('stateDriver', () => {
           },
           error: reject,
           complete: () => {
-            reject('should resolve before complete')
+            reject(`should resolve before complete. clicks: ${clicks}`)
           },
         })
     })
@@ -65,7 +65,7 @@ describe('stateDriver', () => {
           },
           error: reject,
           complete: () => {
-            reject('should resolve before complete')
+            reject(`should resolve before complete. clicks: ${clicks}`)
           },
         })
     })
