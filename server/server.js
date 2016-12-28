@@ -12,7 +12,6 @@ app.set('x-powered-by', false)
 app.use('/jira', proxy({
   target: 'https://cianru.atlassian.net/',
   pathRewrite: { '^/jira': '/rest' },
-  auth: `${config.jira.login}:${config.jira.pass}`,
   headers: { 'User-Agent': 'Node.js' },
   changeOrigin: true,
 }))

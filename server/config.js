@@ -10,10 +10,6 @@ module.exports = {
   app: {
     port: env.PORT || '3000',
   },
-  jira: {
-    login: env.JIRA_LOGIN,
-    pass: env.JIRA_PASS,
-  },
   assets: {
     port: assetsPort,
     baseUrl: assetsBaseUrl,
