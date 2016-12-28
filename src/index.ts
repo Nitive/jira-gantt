@@ -2,7 +2,7 @@ import { Stream } from 'xstream'
 import { run } from '@cycle/xstream-run'
 import { makeDOMDriver, VNode } from '@cycle/dom'
 import { DOMSource } from '@cycle/dom/xstream-typings'
-import { makeStateDriver, streamToActionMiddleware, StateSource } from './utils/state-driver'
+import { makeStateDriver, flatActionsStreamMiddleware, StateSource } from './utils/state-driver'
 
 import { makeKeysDriver, KeysSource } from './utils/keys-driver'
 import { State } from './state'
@@ -28,6 +28,6 @@ const initialState = {}
 
 run(main, {
   DOM: makeDOMDriver('#app'),
-  state: makeStateDriver(initialState, actions, reducer, streamToActionMiddleware),
+  state: makeStateDriver(initialState, actions, reducer, flatActionsStreamMiddleware),
   keys: makeKeysDriver(),
 })

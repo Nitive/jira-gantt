@@ -1,5 +1,5 @@
 import xs from 'xstream'
-import { makeStateDriver, streamToActionMiddleware } from '../state-driver'
+import { makeStateDriver, flatActionsStreamMiddleware } from '../state-driver'
 
 describe('stateDriver', () => {
   interface State {
@@ -48,7 +48,7 @@ describe('stateDriver', () => {
   })
 
   it('should apply middleware', () => {
-    const driver = makeStateDriver(st, actions, reducer, streamToActionMiddleware)
+    const driver = makeStateDriver(st, actions, reducer, flatActionsStreamMiddleware)
     const actions$ = xs.fromArray([ xs.of(action), xs.of(action), action ])
     const state = driver(actions$)
 

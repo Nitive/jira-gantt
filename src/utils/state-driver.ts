@@ -42,7 +42,7 @@ function isStream<T>(stream: any): stream is Stream<T> {
   return stream instanceof Stream
 }
 
-export function streamToActionMiddleware<Action>(actionsStreamOrAction: Action | Stream<Action>): Stream<Action> {
+export function flatActionsStreamMiddleware<Action>(actionsStreamOrAction: Action | Stream<Action>): Stream<Action> {
   return isStream(actionsStreamOrAction)
     ? actionsStreamOrAction
     : xs.of(actionsStreamOrAction)
