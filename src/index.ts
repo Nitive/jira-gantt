@@ -30,8 +30,8 @@ const initialState = {}
 
 import xs from 'xstream'
 
-function createPassContextMiddleware(context: Context) {
-  return function passContextMiddleware(action: MiddlewareInput): Stream<Action | Stream<Action>> {
+function createPassContextMiddleware<C>(context: C) {
+  return function passContextMiddleware<A>(action: A | ((ctx: C) => A)): Stream<A> {
     return typeof action === 'function'
       ? xs.of(action(context))
       : xs.of(action)

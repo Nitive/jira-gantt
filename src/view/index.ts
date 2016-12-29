@@ -25,13 +25,13 @@ export function main(sources: Sources): Sinks {
     ])
   })
 
-  const inc$ = sources.DOM
+  const fetchIssues$ = sources.DOM
     .select('.inc')
     .events('click')
-    .map(() => sources.state.actions.getIssuesForVersion('Mobile S13-1'))
+    .map(() => sources.state.actions.getIssuesForVersion('Mobile S1-1'))
 
   return {
     DOM: vdom$,
-    state: inc$,
+    state: fetchIssues$,
   }
 }
