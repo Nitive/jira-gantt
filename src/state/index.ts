@@ -1,3 +1,4 @@
+import { JiraApi } from '../api'
 import { UserIssues } from './essences/issue'
 
 
@@ -22,4 +23,8 @@ type Issues = IssuesFetching | IssuesFetched | IssuesErrored
 
 export interface State {
   readonly issues?: Issues,
+}
+
+export interface ActionContext {
+  api: JiraApi,
 }
