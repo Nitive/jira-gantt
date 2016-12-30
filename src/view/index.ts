@@ -1,14 +1,14 @@
 import sampleCombine from 'xstream/extra/sampleCombine'
-import { input, img, div, button } from '@cycle/dom'
+import { form, input, img, div, button } from '@cycle/dom'
 
 import { Sinks, Sources } from '..'
 import { issueRow } from './components/issue'
 
 export function main(sources: Sources): Sinks {
   const vdom$ = sources.state.$.map(state => {
-    return div([
+    return form('.form', [
       input('.auth', { attrs: { type: 'text'} }),
-      button('.inc', 'fetch'),
+      button('fetch'),
       state.issues && div([
         state.issues.status === 'fetching' && div('fetching...'),
         state.issues.status === 'success' && div(
@@ -32,13 +32,14 @@ export function main(sources: Sources): Sinks {
     .events('input')
     .map(e => (e.target as HTMLInputElement).value)
 
-  const fetchClick$ = sources.DOM
-    .select('.inc')
-    .events('click')
+  const submit$ = sources.DOM
+    .select('.form')
+    .events('submit')
+    .map(ev => ev.preventDefault())
     .compose(sampleCombine(auth$))
     .map(([_, auth]) => auth)
 
-  const fetchIssues$ = fetchClick$
+  const fetchIssues$ = submit$
     .map(auth => sources.state.actions.getIssuesForVersion('Mobile S1-1', auth))
 
   return {
