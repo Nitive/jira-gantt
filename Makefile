@@ -48,10 +48,13 @@ cover:
 
 # production
 
+install:
+	yarn install
+
 assets-build: clean
 	webpack -p
 
-production:
+production: install
 	NODE_ENV=production \
 	ASSETS_BASE_URL=/ \
 	make assets-build server
