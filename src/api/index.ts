@@ -6,12 +6,6 @@ import { JiraSearchBody, JiraSearchResponse } from './search'
 export class Api {
   private headers: { [key: string]: string }
 
-  constructor(auth: string) {
-    this.headers = {
-      'Authorization': `Basic ${window.btoa(auth)}`,
-    }
-  }
-
   get<ResponseBody>(url: string): Stream<ResponseBody> {
     const promise = fetch(url, { headers: this.headers })
       .then(this.checkStatus)
@@ -19,12 +13,13 @@ export class Api {
     return xs.fromPromise(promise)
   }
 
-  post<ResponseBody>(url: string, data: Object): Stream<ResponseBody> {
+  post<ResponseBody>(url: string, data: Object, auth: string): Stream<ResponseBody> {
     const params = {
       method: 'POST',
       headers: {
         ...this.headers,
         'Content-Type': 'application/json',
+        'Authorization': `Basic ${window.btoa(auth)}`,
       },
       body: JSON.stringify(data),
     }
@@ -46,15 +41,15 @@ export class Api {
 export class JiraApi {
   private api: Api
 
-  constructor(auth: string) {
-    this.api = new Api(auth)
+  constructor() {
+    this.api = new Api()
   }
 
   getProject(projectKey: string) {
     return this.api.get<JiraProjectResponse>(`/jira/api/2/project/${projectKey}`)
   }
 
-  getIssuesForVersion(version: string) {
+  getIssuesForVersion(version: string, auth: string) {
     const data: JiraSearchBody = {
       jql: `fixVersion = '${version}'`,
       fields: [
@@ -73,6 +68,6 @@ export class JiraApi {
       ],
     }
 
-    return this.api.post<JiraSearchResponse>('/jira/api/2/search/', data)
+    return this.api.post<JiraSearchResponse>('/jira/api/2/search/', data, auth)
   }
 }

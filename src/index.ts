@@ -69,7 +69,7 @@ const mergeMiddlewares: MergeMiddlewaresSignature = ((...middlewares: Middleware
   }
 })
 
-const api = new JiraApi('user:pass')
+const api = new JiraApi()
 const context: ActionContext = { api }
 
 const middleware = mergeMiddlewares<FunctionInput, Stream<Action>, Action>(

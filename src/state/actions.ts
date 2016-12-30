@@ -9,10 +9,10 @@ export type Action
   | { type: 'GetIssuesForVersionSuccess', data: JiraSearchResponse }
   | { type: 'GetIssuesForVersionErrored', error: any }
 
-export function getIssuesForVersion(version: string) {
+export function getIssuesForVersion(version: string, auth: string) {
   return ({ api }: ActionContext) => xs.merge(
     xs.of<Action>({ type: 'GetIssuesForVersionPending' }),
-    api.getIssuesForVersion(version)
+    api.getIssuesForVersion(version, auth)
       .map<Action>(data => ({ type: 'GetIssuesForVersionSuccess', data }))
       .replaceError(error => xs.of<Action>({ type: 'GetIssuesForVersionErrored', error })),
   )
