@@ -49,6 +49,7 @@ cover:
 # production
 
 install:
+	@ if ! (type yarn); then npm install yarn; fi;
 	yarn install
 
 assets-build: clean
