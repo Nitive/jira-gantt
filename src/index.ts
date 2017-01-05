@@ -1,4 +1,4 @@
-import { Stream } from 'xstream'
+import xs, { Stream } from 'xstream'
 import { run } from '@cycle/xstream-run'
 import { makeDOMDriver, VNode } from '@cycle/dom'
 import { DOMSource } from '@cycle/dom/xstream-typings'
@@ -19,7 +19,7 @@ export interface Sources {
   keys: KeysSource,
 }
 
-type FunctionInput = ({ api }: ActionContext) => Action | Stream<Action>
+type FunctionInput = (ctx: ActionContext) => Action | Stream<Action>
 type MiddlewareInput = Action | Stream<Action> | FunctionInput
 export interface Sinks {
   DOM: Stream<VNode>,
@@ -28,13 +28,9 @@ export interface Sinks {
 
 const initialState = {}
 
-import xs from 'xstream'
-
 function createPassContextMiddleware<C>(context: C) {
   return function passContextMiddleware<A>(action: A | ((ctx: C) => A)): Stream<A> {
-    return xs.of(
-      typeof action === 'function' ? action(context) : action,
-    )
+    return xs.of(typeof action === 'function' ? action(context) : action)
   }
 }
 
@@ -61,10 +57,10 @@ interface MergeMiddlewaresSignature {
 }
 
 const mergeMiddlewares: MergeMiddlewaresSignature = ((...middlewares: Middleware<any, any>[]) => {
-  return function middleware(action$: Stream<any>): Stream<any> {
+  return function middleware(action: any): Stream<any> {
     return middlewares.reduce(
       (acc$, middleware) => acc$.map(middleware).flatten(),
-      action$,
+      xs.of(action),
     )
   }
 })

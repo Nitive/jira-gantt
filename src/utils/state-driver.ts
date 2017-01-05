@@ -16,7 +16,10 @@ export class StateSource<State, Action, Actions> {
     actions$: Stream<MiddlewareInput>,
   ) {
     this.actions = actions
-    this.$ = middleware(actions$).fold(reducer, initialState)
+    this.$ = actions$
+      .map(middleware)
+      .flatten()
+      .fold(reducer, initialState)
   }
 }
 
@@ -38,11 +41,8 @@ function isStream<T>(stream: any): stream is Stream<T> {
   return stream instanceof Stream
 }
 
-export function flatActionsStreamMiddleware<A>(action$: Stream<A | Stream<A>>): Stream<A> {
-  return action$
-    .map(action => {
-      return isStream(action)
-        ? action.flatten()
-        : action
-    })
+export function flatActionsStreamMiddleware<A>(action: A | Stream<A>): Stream<A> {
+  return isStream(action)
+    ? action
+    : xs.of(action)
 }
